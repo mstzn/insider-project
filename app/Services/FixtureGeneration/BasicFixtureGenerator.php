@@ -6,7 +6,7 @@ use App\Exceptions\TeamCountIsNotEvenException;
 use App\Interfaces\FixtureGeneratorInterface;
 use App\Models\Team;
 
-class CircleFixtureGenerator implements FixtureGeneratorInterface
+class BasicFixtureGenerator implements FixtureGeneratorInterface
 {
     /**
      * @param Team[] $teams

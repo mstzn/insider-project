@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TeamResource;
-use App\Models\Team;
-use App\Repositories\TeamRepository;
+use App\Interfaces\TeamRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TeamController extends Controller
 {
-    protected TeamRepository $teamRepository;
+    protected TeamRepositoryInterface $teamRepository;
 
-    public function __construct(TeamRepository $teamRepository)
+    public function __construct(TeamRepositoryInterface $teamRepository)
     {
         $this->teamRepository = $teamRepository;
     }
 
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
         $teams = $this->teamRepository->all();
 

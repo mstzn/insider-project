@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('home_team_score')->nullable()->unsigned();
             $table->integer('away_team_score')->nullable()->unsigned();
             $table->integer('week')->unsigned();
+            $table->boolean('is_played')->default(false);
 
             $table->foreign('home_team_id')->references('id')->on('teams')->onDelete('CASCADE');
             $table->foreign('away_team_id')->references('id')->on('teams')->onDelete('CASCADE');

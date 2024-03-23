@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('fixtures', function (Blueprint $table) {
             $table->id();
+            $table->integer('week')->unsigned()->default(1);
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

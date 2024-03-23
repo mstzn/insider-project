@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\TeamRepositoryInterface;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Collection;
 
-class TeamRepository
+class TeamRepositoryMysqlImplementation implements TeamRepositoryInterface
 {
     public function all(): Collection
     {
