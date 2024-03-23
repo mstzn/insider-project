@@ -13,17 +13,7 @@ return new class extends Migration
     {
         Schema::create('fixtures', function (Blueprint $table) {
             $table->id();
-            $table->integer('week')->unsigned();
-            $table->integer('home_team_id')->unsigned();
-            $table->integer('away_team_id')->unsigned();
-            $table->integer('season_id')->unsigned();
-            $table->integer('home_team_score')->nullable()->unsigned();
-            $table->integer('away_team_score')->nullable()->unsigned();
             $table->timestamps();
-
-            $table->foreign('home_team_id')->references('id')->on('teams')->onDelete('CASCADE');
-            $table->foreign('away_team_id')->references('id')->on('teams')->onDelete('CASCADE');
-            $table->foreign('season_id')->references('id')->on('seasons')->onDelete('CASCADE');
         });
     }
 

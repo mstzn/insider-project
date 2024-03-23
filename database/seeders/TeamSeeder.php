@@ -14,26 +14,10 @@ class TeamSeeder extends Seeder
     public function run(): void
     {
         $teamNames = [
-            'Arsenal', 
-            'Aston Villa', 
-            'Bournemouth', 
-            'Brentford', 
-            'Brighton', 
-            'Burnley', 
-            'Chelsea', 
-            'Crystal Palace', 
-            'Everton', 
-            'Fulham', 
-            'Liverpool', 
-            'Luton Town', 
-            'Man. City', 
-            'Manchester Utd', 
-            'Newcastle', 
-            'Nottingham', 
-            'Sheffield Utd', 
-            'Tottenham', 
-            'West Ham', 
-            'Wolves'
+            'Arsenal',
+            'Liverpool',
+            'Manchester City',
+            'Chelsea',
         ];
 
         foreach ($teamNames as $teamName) {
