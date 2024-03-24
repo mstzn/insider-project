@@ -20,7 +20,7 @@ class StandingsRepositoryMysqlImplementation implements StandingsRepositoryInter
 
     public function get(Fixture $fixture): Collection
     {
-        return Standing::where('fixture_id', $fixture->id)->orderBy('points', 'desc')->get();
+        return Standing::where('fixture_id', $fixture->id)->orderBy('points', 'desc')->orderBy('goal_difference', 'desc')->orderBy('team_id', 'desc')->get();
     }
 
     public function getTeam(Fixture $fixture, Team $team)
@@ -93,5 +93,10 @@ class StandingsRepositoryMysqlImplementation implements StandingsRepositoryInter
             $standing->lost = $lost;
             $standing->update();
         }
+    }
+
+    public function clearAll()
+    {
+        Standing::truncate();
     }
 }

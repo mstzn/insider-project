@@ -20,6 +20,11 @@ class GameRepositoryMysqlImplementation implements GameRepositoryInterface
         return Game::where('fixture_id', $fixture->id)->where('week', $fixture->week)->get()->all();
     }
 
+    public function getGamesForLastPlayedFixtureWeek(Fixture $fixture, int $week)
+    {
+        return Game::where('fixture_id', $fixture->id)->where('week', $week)->get()->all();
+    }
+
     public function getPlayedGamesForFixture(Fixture $fixture)
     {
         return Game::where('fixture_id', $fixture->id)->where('is_played', true)->get()->all();
@@ -34,5 +39,10 @@ class GameRepositoryMysqlImplementation implements GameRepositoryInterface
                     ->orWhere('away_team_id', $team->id);
             })
             ->get()->all();
+    }
+
+    public function clearAll()
+    {
+        Game::truncate();
     }
 }

@@ -23,6 +23,7 @@ class TeamResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'short_name' => $this->short_name,
+            'emblem' => $this->emblem,
         ];
     }
 }

@@ -54,4 +54,9 @@ class FixtureRepositoryMysqlImplementation implements FixtureRepositoryInterface
         }
         $fixture->update();
     }
+
+    public function clearAll()
+    {
+        Fixture::truncate();
+    }
 }

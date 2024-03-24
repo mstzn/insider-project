@@ -10,7 +10,10 @@ use App\Interfaces\PredictionGeneratorInterface;
 use App\Interfaces\FixtureRepositoryInterface;
 use App\Interfaces\GameRepositoryInterface;
 use App\Interfaces\StandingsRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Artisan;
 
 class SimulationController extends Controller
 {
@@ -43,12 +46,19 @@ class SimulationController extends Controller
             throw new NoActiveFixtureFoundException('No fixture generated yet!');
         }
 
+        $week = $activeFixture->week;
+        if ($activeFixture->week > 1 &&
+            $activeFixture->week <= $activeFixture->total_weeks &&
+            !$activeFixture->all_weeks_played) {
+            $week = $activeFixture->week - 1;
+        }
+
         $standings = $this->standingsRepository->get($activeFixture);
-        $games = $this->gameRepository->getGamesForFixtureWeek($activeFixture);
+        $games = $this->gameRepository->getGamesForLastPlayedFixtureWeek($activeFixture, $week);
         $predictions = $this->predictionGenerator->getPredictions($activeFixture);
 
         return SimulationResource::make([
-            'week' => $activeFixture->week,
+            'week' => $week,
             'standings' => $standings,
             'schedule' => $games,
             'predictions' => $predictions,
@@ -98,5 +108,14 @@ class SimulationController extends Controller
         $this->fixtureRepository->markWeekAsCompleted();
 
         $this->standingsRepository->update($activeFixture);
+    }
+
+    public function resetData(Request $request): JsonResponse
+    {
+        $this->fixtureRepository->clearAll();
+        $this->gameRepository->clearAll();
+        $this->standingsRepository->clearAll();
+
+        return response()->json([], Response::HTTP_OK);
     }
 }

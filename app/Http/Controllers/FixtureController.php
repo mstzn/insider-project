@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\NoActiveFixtureFoundException;
 use App\Http\Resources\FixtureResource;
 use App\Interfaces\FixtureGeneratorInterface;
 use App\Interfaces\FixtureRepositoryInterface;
@@ -9,6 +10,7 @@ use App\Interfaces\StandingsRepositoryInterface;
 use App\Interfaces\TeamRepositoryInterface;
 use App\Models\Fixture;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class FixtureController extends Controller
 {
@@ -42,6 +44,15 @@ class FixtureController extends Controller
 
     public function show(Request $request, Fixture $fixture): FixtureResource
     {
+        return FixtureResource::make($fixture);
+    }
+
+    public function showCurrent(Request $request): FixtureResource
+    {
+        $fixture = $this->fixtureRepository->getActiveFixture();
+        if (!$fixture) {
+            throw new NoActiveFixtureFoundException('No fixture generated yet.', Response::HTTP_NOT_FOUND);
+        }
         return FixtureResource::make($fixture);
     }
 }
