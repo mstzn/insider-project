@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 /**
  * @property int $id
  * @property boolean $is_active
+ * @property boolean $all_weeks_played
  * @property int $week
+ * @property int $total_weeks
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */

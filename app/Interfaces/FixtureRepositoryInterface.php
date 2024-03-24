@@ -8,5 +8,7 @@ interface FixtureRepositoryInterface {
 
     public function add(array $fixtures): Fixture;
 
-    public function getActiveFixture(): Fixture;
+    public function getActiveFixture(): ?Fixture;
+
+    public function markWeekAsCompleted(): void;
 }

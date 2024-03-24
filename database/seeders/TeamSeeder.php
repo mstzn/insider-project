@@ -15,25 +15,45 @@ class TeamSeeder extends Seeder
     {
         $teamNames = [
             'Arsenal',
-            'Liverpool',
-            'Manchester City',
+            'Aston Villa',
+            'Bournemouth',
+            'Brentford',
+            'Brighton',
+            'Burnley',
             'Chelsea',
+            'Crystal Palace',
+            'Everton',
+            'Fulham',
+            'Liverpool',
+            'Luton Town',
+            'Man. City',
+            'Manchester Utd',
+            'Newcastle',
+            'Nottingham',
+            'Sheffield Utd',
+            'Tottenham',
+            'West Ham',
+            'Wolves',
         ];
 
-        foreach ($teamNames as $teamName) {
+        foreach ($teamNames as $index => $teamName) {
             Team::factory()->create([
-                'name'=> $teamName,
+                'name' => $teamName,
                 'short_name' => $this->getShortName($teamName),
             ]);
+
+            if ($index == min(config('app.total_number_of_teams'), count($teamNames)) - 1) {
+                break;
+            }
         }
     }
 
-    private function getShortName (string $name): string {
-        $shortName = '';
-        if (strpos($name,' ') !== false) {
+    private function getShortName(string $name): string
+    {
+        if (str_contains($name, ' ')) {
             $shortName = substr($name, 0, 2) . substr($name, strpos($name, ' ') + 1, 1);
         } else {
-            $shortName = substr($name,0, 3);
+            $shortName = substr($name, 0, 3);
         }
 
         return strtoupper($shortName);

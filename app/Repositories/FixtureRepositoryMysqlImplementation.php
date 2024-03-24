@@ -21,6 +21,7 @@ class FixtureRepositoryMysqlImplementation implements FixtureRepositoryInterface
 
         $fixture = new Fixture();
         $fixture->is_active = true;
+        $fixture->total_weeks = count($fixtures);
         $fixture->save();
 
         foreach ($fixtures as $week => $schedule) {
@@ -37,8 +38,20 @@ class FixtureRepositoryMysqlImplementation implements FixtureRepositoryInterface
         return $fixture;
     }
 
-    public function getActiveFixture(): Fixture
+    public function getActiveFixture(): ?Fixture
     {
         return Fixture::active()->get()->first();
+    }
+
+    public function markWeekAsCompleted(): void
+    {
+        $fixture = $this->getActiveFixture();
+        $currentWeek = $fixture->week;
+        if ($currentWeek + 1 <= $fixture->total_weeks) {
+            $fixture->week += 1;
+        } else {
+            $fixture->all_weeks_played = true;
+        }
+        $fixture->update();
     }
 }

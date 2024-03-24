@@ -123,4 +123,7 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'total_number_of_teams' => env('TOTAL_NUMBER_OF_TEAMS', 4),
+    'max_goal_per_match' => env('MAX_GOAL_PER_MATCH', 5),
+
 ];

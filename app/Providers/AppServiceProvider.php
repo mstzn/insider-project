@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Interfaces\FixtureGeneratorInterface;
 use App\Interfaces\FixtureRepositoryInterface;
 use App\Interfaces\GameRepositoryInterface;
+use App\Interfaces\GameSimulatorInterface;
 use App\Interfaces\PredictionGeneratorInterface;
 use App\Interfaces\StandingsRepositoryInterface;
 use App\Interfaces\TeamRepositoryInterface;
@@ -13,6 +14,7 @@ use App\Repositories\GameRepositoryMysqlImplementation;
 use App\Repositories\StandingsRepositoryMysqlImplementation;
 use App\Repositories\TeamRepositoryMysqlImplementation;
 use App\Services\FixtureGeneration\BasicFixtureGenerator;
+use App\Services\GameSimulation\BasicGameSimulator;
 use App\Services\PredictionGeneration\BasicPredictionGenerator;
 use Illuminate\Support\ServiceProvider;
 
@@ -42,7 +44,16 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(StandingsRepositoryInterface::class, function (): StandingsRepositoryInterface {
-            return new StandingsRepositoryMysqlImplementation();
+            return new StandingsRepositoryMysqlImplementation(
+                $this->app->get(GameRepositoryInterface::class)
+            );
+        });
+
+        $this->app->singleton(GameSimulatorInterface::class, function (): GameSimulatorInterface {
+            return new BasicGameSimulator(
+                $this->app->get(FixtureRepositoryInterface::class),
+                $this->app->get(StandingsRepositoryInterface::class),
+            );
         });
 
         $this->app->singleton(PredictionGeneratorInterface::class, function (): PredictionGeneratorInterface {
