@@ -54,7 +54,7 @@ class SimulationController extends Controller
         }
 
         $standings = $this->standingsRepository->get($activeFixture);
-        $games = $this->gameRepository->getGamesForLastPlayedFixtureWeek($activeFixture, $week);
+        $games = $this->gameRepository->getGamesForSpecificFixtureWeek($activeFixture, $week);
         $predictions = $this->predictionGenerator->getPredictions($activeFixture);
 
         return SimulationResource::make([

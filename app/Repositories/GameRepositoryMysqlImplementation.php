@@ -20,7 +20,7 @@ class GameRepositoryMysqlImplementation implements GameRepositoryInterface
         return Game::where('fixture_id', $fixture->id)->where('week', $fixture->week)->get()->all();
     }
 
-    public function getGamesForLastPlayedFixtureWeek(Fixture $fixture, int $week)
+    public function getGamesForSpecificFixtureWeek(Fixture $fixture, int $week)
     {
         return Game::where('fixture_id', $fixture->id)->where('week', $week)->get()->all();
     }

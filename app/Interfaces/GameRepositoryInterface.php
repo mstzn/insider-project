@@ -10,7 +10,7 @@ interface GameRepositoryInterface {
 
     public function add(Game $game): bool;
     public function getGamesForFixtureWeek(Fixture $fixture);
-    public function getGamesForLastPlayedFixtureWeek(Fixture $fixture, int $week);
+    public function getGamesForSpecificFixtureWeek(Fixture $fixture, int $week);
     public function getPlayedGamesForFixture(Fixture $fixture);
     public function getPlayedTeamGamesForFixture(Fixture $fixture, Team $team);
     public function clearAll();
