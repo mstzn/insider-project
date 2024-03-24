@@ -36,6 +36,12 @@ MAX_GOAL_PER_MATCH
 /api/fixtures/generate
 ```
 
+#### Get All Games for Active Fixture
+```
+/api/fixtures/show
+```
+
+
 #### Get All Games for a Fixture
 ```
 /api/fixtures/show/{fixture}
@@ -54,6 +60,12 @@ MAX_GOAL_PER_MATCH
 #### Simulate Next Week
 ```
 /api/simulation/play-next-week
+```
+
+
+#### Reset All Data
+```
+/api/simulation/reset-data
 ```
 
 
