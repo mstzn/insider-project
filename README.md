@@ -8,6 +8,11 @@ php artisan migrate:fresh --seed
 php artisan serve
 ```
 ---
+#### Run tests
+```
+./vendor/bin/pest
+```
+---
 #### Environment Variables
 To change number of teams for fixture
 
